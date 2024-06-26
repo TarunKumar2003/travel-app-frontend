@@ -1,3 +1,6 @@
 export { Navbar } from './Navbar/Navbar'
 export { HotelCard } from './HotelCard/HotelCard'
 export { Categories } from './Categories/Categories'
+export { HotelDetail } from './HotelDetail/HotelDetail'
+export { HotelImages } from './HotelImages/HotelImages'
+export { FinalPrice } from './FinalPrice/FinalPrice'

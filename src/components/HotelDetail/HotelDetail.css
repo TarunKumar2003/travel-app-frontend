@@ -1,0 +1,27 @@
+.hotel-details-container {
+  padding: 1.5rem;
+}
+
+.host-details .text-xl {
+  color: var(--text-color-primary);
+}
+
+.text-gray-600 {
+  color: #4a5568;
+}
+
+.feature .text-lg {
+  color: var(--text-color-primary);
+}
+
+.material-icons-outlined {
+  font-size: 1.25rem;
+}
+
+.feature {
+  padding-bottom: 1rem;
+}
+
+.amenities-container .text-xl {
+  color: var(--text-color-primary);
+}

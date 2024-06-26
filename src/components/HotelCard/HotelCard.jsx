@@ -1,10 +1,17 @@
+import { useNavigate } from 'react-router-dom'
 import './HotelCard.css'
+
 export function HotelCard({ hotel }) {
   // Destructure All of things
-  const { image, address, rating, name, price, state } = hotel
+  const { _id, image, address, rating, name, price, state } = hotel
+
+  const navigate = useNavigate()
+  function handleHotelCardClick() {
+    navigate(`/hotels/${name}/${address}/${state}/${_id}/reserve`)
+  }
   return (
     <div className="relative hotelcard-container shadow cursor-pointer">
-      <div>
+      <div onClick={handleHotelCardClick}>
         <img className="img" src={image} alt="hotel-card" />
         <div className="hotelcard-details">
           <div className="d-flex align-center">
