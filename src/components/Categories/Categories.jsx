@@ -12,6 +12,11 @@ export const Categories = () => {
   const handleShowMoreRightClick = () => {
     setNumberOfCategoryToShow((prev) => prev + 10)
   }
+  const handleFilterClick = () => {
+    filterDispatch({
+      type: 'SHOW_FILTER_MODAL',
+    })
+  }
 
   const handleShowMoreLeftClick = () => {
     setNumberOfCategoryToShow((prev) => prev - 10)
@@ -44,33 +49,41 @@ export const Categories = () => {
   }
 
   return (
-    <section className="categories d-flex align-center gap-large cursor-pointer">
-      {numberOfCategoryToShow >= 10 && (
-        <button
-          className="button btn-category btn-left fixed cursor-pointer"
-          onClick={handleShowMoreLeftClick}
-        >
-          <span class="material-icons-outlined">chevron_left</span>
-        </button>
-      )}
-      {categories &&
-        categories.map(({ _id, category }) => (
-          <span
-            className={`${category === hotelCategory ? 'border-bottom' : ''}`}
-            key={_id}
-            onClick={() => handleCategoryClick(category)}
+    <>
+      <section className="categories d-flex align-center gap-large cursor-pointer">
+        {numberOfCategoryToShow >= 10 && (
+          <button
+            className="button btn-category btn-left fixed cursor-pointer"
+            onClick={handleShowMoreLeftClick}
           >
-            {category}
-          </span>
-        ))}
-      {numberOfCategoryToShow - 10 < categories.length && (
-        <button
-          className="button btn-category btn-right fixed cursor-pointer"
-          onClick={handleShowMoreRightClick}
-        >
-          <span className="material-icons-outlined">chevron_right</span>
-        </button>
-      )}
-    </section>
+            <span class="material-icons-outlined">chevron_left</span>
+          </button>
+        )}
+        {categories &&
+          categories.map(({ _id, category }) => (
+            <span
+              className={`${category === hotelCategory ? 'border-bottom' : ''}`}
+              key={_id}
+              onClick={() => handleCategoryClick(category)}
+            >
+              {category}
+            </span>
+          ))}
+        {numberOfCategoryToShow - 10 < categories.length && (
+          <button
+            className="button btn-category btn-right fixed cursor-pointer"
+            onClick={handleShowMoreRightClick}
+          >
+            <span className="material-icons-outlined">chevron_right</span>
+          </button>
+        )}
+        <div className=" border rounded-2xl pl-3 pr-3 pt-1 pb-1 shadow-sm">
+          <button className="flex cursor-pointer " onClick={handleFilterClick}>
+            <span className="material-icons-outlined">filter_alt</span>
+            <span className="ml-1">Filter</span>
+          </button>
+        </div>
+      </section>
+    </>
   )
 }
