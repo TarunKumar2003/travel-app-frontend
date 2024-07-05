@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom'
 import './App.css'
 import { Categories } from './components'
 import { Home, SingleHotel } from './pages'
+import { Filter } from './components/Filters'
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         path="/hotels/:name/:address/:state/:_id/reserve"
         element={<SingleHotel />}
       />
+      <Route path="/filter" element={<Filter />} />
     </Routes>
   )
 }

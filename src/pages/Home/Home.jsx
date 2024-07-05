@@ -2,14 +2,20 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import InfiniteScroll from 'react-infinite-scroll-component'
 
-import { Categories, HotelCard, Navbar } from '../../components'
+import {
+  Categories,
+  HotelCard,
+  Navbar,
+  SearchStayWithDate,
+} from '../../components'
 import './Home.css'
-
+import { useDate } from '../../context'
 export function Home() {
   const [hasMore, setHasMore] = useState(true)
   const [currentIndex, setCurrentIndex] = useState(16)
   const [testData, setTestData] = useState([])
   const [hotels, setHotels] = useState([])
+  const { isSearchModalOpen } = useDate()
   useEffect(() => {
     ;(async () => {
       try {
@@ -69,6 +75,7 @@ export function Home() {
       ) : (
         <></>
       )}
+      {isSearchModalOpen && <SearchStayWithDate />}
     </>
   )
 }

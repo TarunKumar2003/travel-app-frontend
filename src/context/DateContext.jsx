@@ -1,5 +1,5 @@
-import { Children } from 'react'
-import { createContext, useContext, useReducer } from 'react'
+import React, { createContext, useContext, useReducer } from 'react'
+import { DateReducer } from '../reducers'
 
 const initialState = {
   destination: '',
@@ -12,7 +12,7 @@ const initialState = {
 
 const DateContext = createContext(initialState)
 
-const DateProvider = ({ Children }) => {
+const DateProvider = ({ children }) => {
   const [
     {
       destination,
@@ -23,22 +23,24 @@ const DateProvider = ({ Children }) => {
       isSearchResultOpen,
     },
     dateDispatch,
-  ] = useReducer(dateReducer, initialState)
-}
+  ] = useReducer(DateReducer, initialState)
 
-;<DateContext.Provider
-  value={{
-    destination,
-    guests,
-    checkInDate,
-    checkOutDate,
-    isSearchModalOpen,
-    isSearchResultOpen,
-    dateDispatch,
-  }}
->
-  {Children}
-</DateContext.Provider>
+  return (
+    <DateContext.Provider
+      value={{
+        destination,
+        guests,
+        checkInDate,
+        checkOutDate,
+        isSearchModalOpen,
+        isSearchResultOpen,
+        dateDispatch,
+      }}
+    >
+      {children}
+    </DateContext.Provider>
+  )
+}
 
 const useDate = () => useContext(DateContext)
 
