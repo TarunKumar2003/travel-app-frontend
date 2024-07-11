@@ -12,6 +12,7 @@ export const Categories = () => {
   const handleShowMoreRightClick = () => {
     setNumberOfCategoryToShow((prev) => prev + 10)
   }
+
   const handleFilterClick = () => {
     filterDispatch({
       type: 'SHOW_FILTER_MODAL',
@@ -49,14 +50,14 @@ export const Categories = () => {
   }
 
   return (
-    <>
-      <section className="categories d-flex align-center gap-large cursor-pointer">
+    <div className="categories">
+      <section className="d-flex align-center gap-large cursor-pointer">
         {numberOfCategoryToShow >= 10 && (
           <button
             className="button btn-category btn-left fixed cursor-pointer"
             onClick={handleShowMoreLeftClick}
           >
-            <span class="material-icons-outlined">chevron_left</span>
+            <span className="material-icons-outlined">chevron_left</span>
           </button>
         )}
         {categories &&
@@ -77,13 +78,14 @@ export const Categories = () => {
             <span className="material-icons-outlined">chevron_right</span>
           </button>
         )}
-        <div className=" border rounded-2xl pl-3 pr-3 pt-1 pb-1 shadow-sm">
-          <button className="flex cursor-pointer " onClick={handleFilterClick}>
-            <span className="material-icons-outlined">filter_alt</span>
-            <span className="ml-1">Filter</span>
-          </button>
-        </div>
       </section>
-    </>
+      <button
+        className="button btn-filter flex items-center gap-small cursor-pointer"
+        onClick={handleFilterClick}
+      >
+        <span className="material-icons-outlined">filter_alt</span>
+        <span>Filter</span>
+      </button>
+    </div>
   )
 }
