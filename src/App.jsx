@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom'
 
 import './App.css'
-import { Categories } from './components'
+import { Categories, Filter } from './components'
 import { Home, SingleHotel } from './pages'
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
         path="/hotels/:name/:address/:state/:_id/reserve"
         element={<SingleHotel />}
       />
-      {/* <Route path="/filter" element={<Filter />} /> */}
+      <Route path="/filter" element={<Filter />} />
     </Routes>
   )
 }
