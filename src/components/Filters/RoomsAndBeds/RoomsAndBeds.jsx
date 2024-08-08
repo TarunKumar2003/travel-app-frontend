@@ -1,6 +1,28 @@
+import { useFilter } from '../../../context/FilterContext'
 const number = ['Any', '1', '2', '3', '4', '5+']
 
 export function RoomsAndBeds() {
+  const { filterDispatch, noOfBathrooms, noOfBedrooms, noOfBeds } = useFilter()
+  const handleBedroomsClick = (number) => {
+    filterDispatch({
+      type: 'BEDROOMS',
+      payload: number,
+    })
+  }
+
+  const handleBathroomsClick = (number) => {
+    filterDispatch({
+      type: 'BATHROOMS',
+      payload: number,
+    })
+  }
+
+  const handleBedsClick = (number) => {
+    filterDispatch({
+      type: 'BEDS',
+      payload: number,
+    })
+  }
   return (
     <div className="filter-container ">
       <div>
@@ -18,6 +40,7 @@ export function RoomsAndBeds() {
                 <span
                   className="span-label amenity-count justify-center text-center cursor-pointer on-hover"
                   key={num}
+                  onClick={() => handleBedroomsClick(number)}
                 >
                   {num}
                 </span>
@@ -29,6 +52,7 @@ export function RoomsAndBeds() {
                 <span
                   className="span-label cursor-pointer  justify-center text-center amenity-count on-hover"
                   key={num}
+                  onClick={() => handleBedsClick(number)}
                 >
                   {num}
                 </span>
@@ -39,7 +63,8 @@ export function RoomsAndBeds() {
               {number.map((num) => (
                 <span
                   className="span-label cursor-pointer justify-center text-center amenity-count on-hover"
-                  key={num}
+                  key={number}
+                  onClick={() => handleBathroomsClick(number)}
                 >
                   {num}
                 </span>

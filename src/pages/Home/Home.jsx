@@ -11,14 +11,16 @@ import {
 } from '../../components'
 import './Home.css'
 import { useDate, useFilter } from '../../context'
-import { getHotelsByPrice } from '../../utils'
+import { getHotelsByPrice, getHotelsByRoomsAndBeds } from '../../utils'
 export function Home() {
   const [hasMore, setHasMore] = useState(true)
   const [currentIndex, setCurrentIndex] = useState(16)
   const [testData, setTestData] = useState([])
   const [hotels, setHotels] = useState([])
   const { isSearchModalOpen } = useDate()
+
   const {
+    isFilterModalOpen,
     priceRange,
     noOfBathrooms,
     noOfBedrooms,
@@ -27,8 +29,6 @@ export function Home() {
     traveloRating,
     isCancelable,
   } = useFilter()
-
-  const { isFilterModalOpen } = useFilter()
   useEffect(() => {
     ;(async () => {
       try {
@@ -63,6 +63,12 @@ export function Home() {
   }
 
   const filteredHotelsByPrice = getHotelsByPrice(hotels, priceRange)
+  const filteredHotelsByBedsAndRooms = getHotelsByRoomsAndBeds(
+    filteredHotelsByPrice,
+    noOfBathrooms,
+    noOfBedrooms,
+    noOfBeds
+  )
   return (
     <>
       <Navbar />
@@ -82,9 +88,10 @@ export function Home() {
           }
         >
           <main className="main d-flex align-center wrap gap-larger">
-            {filteredHotelsByPrice.map((hotel) => (
-              <HotelCard key={hotel._id} hotel={hotel} />
-            ))}
+            {filteredHotelsByBedsAndRooms &&
+              filteredHotelsByBedsAndRooms.map((hotel) => (
+                <HotelCard key={hotel._id} hotel={hotel} />
+              ))}
           </main>
         </InfiniteScroll>
       ) : (

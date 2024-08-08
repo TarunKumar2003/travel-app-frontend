@@ -27,6 +27,24 @@ export function FilterReducer(state, { type, payload }) {
           ),
         ],
       }
+    case 'BEDROOMS':
+      return {
+        ...state,
+        noOfBedrooms:
+          payload === 'Any' ? payload : payload === '5+' ? 5 : Number(payload),
+      }
+    case 'BEDS':
+      return {
+        ...state,
+        noOfBeds:
+          payload === 'Any' ? payload : payload === '5+' ? 5 : Number(payload),
+      }
+    case 'BATHROOMS':
+      return {
+        ...state,
+        noOfBathrooms:
+          payload === 'Any' ? payload : payload === '5+' ? 5 : Number(payload),
+      }
 
     default:
       return state
