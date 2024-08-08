@@ -8,10 +8,12 @@ import {
   Navbar,
   SearchStayWithDate,
   Filter,
+  AuthModal,
 } from '../../components'
 import './Home.css'
-import { useDate, useFilter } from '../../context'
+import { useAuth, useDate, useFilter } from '../../context'
 import { getHotelsByPrice, getHotelsByRoomsAndBeds } from '../../utils'
+
 export function Home() {
   const [hasMore, setHasMore] = useState(true)
   const [currentIndex, setCurrentIndex] = useState(16)
@@ -29,6 +31,7 @@ export function Home() {
     traveloRating,
     isCancelable,
   } = useFilter()
+  const { isAuthModalOpen, isDropDownModalOpen } = useAuth()
   useEffect(() => {
     ;(async () => {
       try {
@@ -99,6 +102,7 @@ export function Home() {
       )}
       {isSearchModalOpen && <SearchStayWithDate />}
       {isFilterModalOpen && <Filter />}
+      {isAuthModalOpen && <AuthModal />}
     </>
   )
 }

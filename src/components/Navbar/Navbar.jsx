@@ -1,11 +1,24 @@
 import './Navbar.css'
 import { useDate } from '../../context'
+import { useAuth } from '../../context'
 export function Navbar() {
   const { dateDispatch } = useDate()
+  const { authDispatch, accessToken } = useAuth()
   function handleSearchClick() {
     dateDispatch({
       type: 'OPEN_SEARCH_MODAL',
     })
+  }
+  function handleAuthClick() {
+    if (accessToken) {
+      authDispatch({
+        type: 'SHOW_DROP_DOWN_OPTIONS',
+      })
+    } else {
+      authDispatch({
+        type: 'SHOW_AUTH_MODAL',
+      })
+    }
   }
   return (
     <header className="heading d-flex align-center">
@@ -25,7 +38,7 @@ export function Navbar() {
         <span className="form-option">Add Guests</span>
         <span className="search material-icons-outlined">search</span>
       </div>
-      <nav className="d-flex align-center gap-large">
+      <nav className="d-flex align-center gap-large" onClick={handleAuthClick}>
         <div className="nav d-flex align-center cursor-pointer">
           <span className="material-icons-outlined profile-option menu p-2">
             menu
