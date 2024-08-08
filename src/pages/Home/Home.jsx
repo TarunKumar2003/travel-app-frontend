@@ -7,15 +7,28 @@ import {
   HotelCard,
   Navbar,
   SearchStayWithDate,
+  Filter,
 } from '../../components'
 import './Home.css'
-import { useDate } from '../../context'
+import { useDate, useFilter } from '../../context'
+import { getHotelsByPrice } from '../../utils'
 export function Home() {
   const [hasMore, setHasMore] = useState(true)
   const [currentIndex, setCurrentIndex] = useState(16)
   const [testData, setTestData] = useState([])
   const [hotels, setHotels] = useState([])
   const { isSearchModalOpen } = useDate()
+  const {
+    priceRange,
+    noOfBathrooms,
+    noOfBedrooms,
+    noOfBeds,
+    propertyType,
+    traveloRating,
+    isCancelable,
+  } = useFilter()
+
+  const { isFilterModalOpen } = useFilter()
   useEffect(() => {
     ;(async () => {
       try {
@@ -48,6 +61,8 @@ export function Home() {
       }
     }, 1000)
   }
+
+  const filteredHotelsByPrice = getHotelsByPrice(hotels, priceRange)
   return (
     <>
       <Navbar />
@@ -67,7 +82,7 @@ export function Home() {
           }
         >
           <main className="main d-flex align-center wrap gap-larger">
-            {hotels.map((hotel) => (
+            {filteredHotelsByPrice.map((hotel) => (
               <HotelCard key={hotel._id} hotel={hotel} />
             ))}
           </main>
@@ -76,6 +91,7 @@ export function Home() {
         <></>
       )}
       {isSearchModalOpen && <SearchStayWithDate />}
+      {isFilterModalOpen && <Filter />}
     </>
   )
 }

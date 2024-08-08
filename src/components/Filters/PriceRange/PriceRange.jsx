@@ -2,15 +2,39 @@ import { useState } from 'react'
 import Box from '@mui/material/Box'
 import Slider from '@mui/material/Slider'
 import './PriceRange.css'
+import { useFilter } from '../../../context'
+
+const minDifference = 500
 
 function valuetext(value) {
   return `${value}`
 }
 export function PriceRange() {
-  const [value, setValue] = useState([20, 37])
+  const { priceRange, filterDispatch } = useFilter()
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue)
+  const handlePriceChange = (event, newValue, activeThumb) => {
+    if (!Array.isArray(newValue)) {
+      return
+    }
+    if (activeThumb === 0) {
+      filterDispatch({
+        type: 'MINIMUM_PRICE',
+        payload: {
+          newValue,
+          priceRange,
+          minDifference,
+        },
+      })
+    } else {
+      filterDispatch({
+        type: 'MAXIMUM_PRICE',
+        payload: {
+          newValue,
+          priceRange,
+          minDifference,
+        },
+      })
+    }
   }
 
   return (
@@ -21,8 +45,8 @@ export function PriceRange() {
           sx={{ color: '#ff6525' }}
           className="price-range mt-5 "
           getAriaLabel={() => ''}
-          value={value}
-          onChange={handleChange}
+          value={priceRange}
+          onChange={handlePriceChange}
           valueLabelDisplay="on"
           getAriaValueText={valuetext}
           min={200}

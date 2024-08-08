@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useCategory } from '../../context'
+import { useFilter } from '../../context'
 
 import './Categories.css'
 
@@ -8,6 +9,7 @@ export const Categories = () => {
   const [categories, setCategories] = useState([])
   const [numberOfCategoryToShow, setNumberOfCategoryToShow] = useState(0)
   const { hotelCategory, setHotelCategory } = useCategory()
+  const { filterDispatch } = useFilter()
 
   const handleShowMoreRightClick = () => {
     setNumberOfCategoryToShow((prev) => prev + 10)
